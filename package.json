@@ -1,0 +1,37 @@
+{
+  "name": "bridge-xrpl",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bridge — a real-estate bridge lending fund on XRPL, using XLS-65 Single Asset Vaults and the XLS-66 Lending Protocol.",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "check:amendments": "tsx src/scripts/check-amendments.ts",
+    "provision": "tsx src/scripts/provision.ts",
+    "bootstrap": "tsx src/scripts/bootstrap-iou.ts",
+    "setup": "npm run check:amendments && npm run provision && npm run bootstrap",
+    "underwrite": "tsx src/scripts/underwrite.ts",
+    "lifecycle": "tsx src/scripts/lifecycle.ts",
+    "loan-clock": "tsx src/scripts/loan-clock.ts",
+    "demo": "tsx src/scripts/demo.ts",
+    "teardown": "tsx src/scripts/teardown.ts",
+    "inspect": "tsx src/scripts/inspect.ts",
+    "server": "tsx src/server/index.ts",
+    "web": "npm --prefix web run dev",
+    "web:install": "npm --prefix web install",
+    "web:build": "npm --prefix web run build",
+    "web:smoke": "npm --prefix web run smoke",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit && npm --prefix web run typecheck"
+  },
+  "dependencies": {
+    "xrpl": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  }
+}

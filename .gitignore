@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+data/wallets.json
+data/state.json
+data/txlog.json
+dist/
+web/dist/
+*.log
