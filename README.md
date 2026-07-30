@@ -1,4 +1,4 @@
-# Bridge
+# Lintel
 
 **A real-estate bridge lending fund on the XRP Ledger.**
 

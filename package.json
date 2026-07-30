@@ -1,8 +1,8 @@
 {
-  "name": "bridge-xrpl",
+  "name": "lintel-xrpl",
   "version": "0.1.0",
   "private": true,
-  "description": "Bridge — a real-estate bridge lending fund on XRPL, using XLS-65 Single Asset Vaults and the XLS-66 Lending Protocol.",
+  "description": "Lintel — a real-estate bridge lending fund on XRPL, using XLS-65 Single Asset Vaults and the XLS-66 Lending Protocol.",
   "license": "MIT",
   "type": "commonjs",
   "scripts": {

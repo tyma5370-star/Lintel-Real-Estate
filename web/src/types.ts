@@ -1,4 +1,4 @@
-/** Shapes returned by the Bridge API. Mirrors src/server/routes.ts. */
+/** Shapes returned by the Lintel API. Mirrors src/server/routes.ts. */
 
 export interface Health {
   network: string;

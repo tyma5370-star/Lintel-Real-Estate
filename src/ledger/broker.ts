@@ -50,7 +50,7 @@ export const DEMO_BROKER_POLICY: BrokerPolicy = {
   debtMaximum: 5_000_000,
   coverMinimumPercent: 10,
   coverLiquidationPercent: 100,
-  note: 'Bridge RE first-loss 10pct',
+  note: 'Lintel RE first-loss 10pct',
 };
 
 export interface CreatedBroker {

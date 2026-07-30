@@ -164,7 +164,7 @@ export function toOnChainTerms(
     // Enabling it here is only half of it; omitting either half means the excess
     // is silently ignored and the transaction still returns tesSUCCESS.
     allowOverpayment: true,
-    note: `BRIDGE|${address}`.slice(0, 200),
+    note: `LINTEL|${address}`.slice(0, 200),
 
     compression: {
       realTermMonths: terms.termMonths,

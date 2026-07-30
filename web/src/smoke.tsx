@@ -17,7 +17,7 @@ import type { DealBundle, Fund, Health, Loan, Policy } from './types';
  * Run the API first, then:  npx tsx web/src/smoke.tsx
  */
 
-const BASE = process.env.BRIDGE_API ?? 'http://localhost:8787';
+const BASE = process.env.LINTEL_API ?? 'http://localhost:8787';
 
 async function get<T>(path: string): Promise<T> {
   const response = await fetch(`${BASE}/api${path}`);

@@ -31,7 +31,7 @@ export interface FundIdentity {
  */
 export function encodeFundIdentity(identity: FundIdentity): string {
   const record = [
-    'BRIDGE1',
+    'LINTEL1',
     identity.name,
     identity.strategy,
     `LTV${identity.targetLtvBand[0]}-${identity.targetLtvBand[1]}`,

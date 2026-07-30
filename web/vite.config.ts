@@ -11,7 +11,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: process.env.BRIDGE_API ?? 'http://localhost:8787',
+        target: process.env.LINTEL_API ?? 'http://localhost:8787',
         changeOrigin: true,
       },
     },

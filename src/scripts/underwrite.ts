@@ -12,7 +12,7 @@ import { banner, fail, heading, info, money, note, ok, pct, table, warn } from '
  * and a set of XLS-66 terms out, with every number traceable to a line of policy.
  */
 function main(): void {
-  banner('Bridge — underwriting engine');
+  banner('Lintel — underwriting engine');
 
   for (const deal of DEMO_DEALS) {
     heading(`${deal.id} · ${deal.address}`);

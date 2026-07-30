@@ -11,7 +11,7 @@ happened to each once the build met the network.
 | D4 | Vault asset | IOU issued by our own devnet issuer | Confirmed a good call — decimal-string amounts throughout, no `AssetScale` boundary to get wrong. RLUSD-on-Devnet was not investigated; the self-issued IOU has no external dependency. |
 | D5 | Persistence | JSON files under `data/` | Holds identifiers and off-chain artefacts only. Never balances or loan state — those are re-read from the ledger after every write. |
 | D6 | Demo clock | **Changed during the build** | See below. This is the most consequential decision on the project. |
-| D7 | Project name | Bridge | — |
+| D7 | Project name | Lintel | — |
 
 ---
 

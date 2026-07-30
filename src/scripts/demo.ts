@@ -25,7 +25,7 @@ import { banner, fail, heading, info, money, note, ok, pct, step, table, tx, war
  */
 
 const FUND_IDENTITY: FundIdentity = {
-  name: 'Bridge RE Fund I',
+  name: 'Lintel RE Fund I',
   strategy: 'RE-BRIDGE',
   targetLtvBand: [55, 70],
   policyHash: policyHash().slice(0, 12),
@@ -40,7 +40,7 @@ async function main(): Promise<void> {
     const w = loadWallets();
     const issuer = w.issuer.classicAddress;
 
-    banner('Bridge — a real-estate bridge lending fund on the XRP Ledger');
+    banner('Lintel — a real-estate bridge lending fund on the XRP Ledger');
     note('Limited partners deposit into an XLS-65 Single Asset Vault. An off-chain');
     note('underwriting engine scores each property deal and outputs loan terms. Those terms');
     note('are originated on-chain through the XLS-66 Lending Protocol, with first-loss');

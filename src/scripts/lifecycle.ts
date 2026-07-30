@@ -34,7 +34,7 @@ import { banner, fail, heading, info, money, note, ok, step, table, tx, warn } f
  */
 
 const FUND_IDENTITY: FundIdentity = {
-  name: 'Bridge RE Fund I',
+  name: 'Lintel RE Fund I',
   strategy: 'RE-BRIDGE',
   targetLtvBand: [55, 70],
   policyHash: policyHash().slice(0, 12),
@@ -48,7 +48,7 @@ async function main(): Promise<void> {
   await withClient(async (client) => {
     const w = loadWallets();
     const issuer = w.issuer.classicAddress;
-    banner('Bridge — XRPL lending lifecycle (GATE 1)');
+    banner('Lintel — XRPL lending lifecycle (GATE 1)');
 
     const existing = loadState();
     if (existing.vaultId) {

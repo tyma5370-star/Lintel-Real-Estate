@@ -36,7 +36,7 @@ export function App() {
     <div className="app">
       <header className="masthead">
         <div className="mark" aria-hidden="true" />
-        <h1>Bridge</h1>
+        <h1>Lintel</h1>
         <span className="tagline">Real-estate bridge lending · XLS-65 vault + XLS-66 loans</span>
         <span className="spacer" />
         <span className={`chip ${connected ? 'live' : 'down'}`}>
@@ -49,7 +49,7 @@ export function App() {
 
       {health.error && (
         <div className="notice error">
-          Cannot reach the Bridge API. Start it with <code>npm run server</code> in the project root.
+          Cannot reach the Lintel API. Start it with <code>npm run server</code> in the project root.
           <div className="tiny dim" style={{ marginTop: 6 }}>{health.error}</div>
         </div>
       )}

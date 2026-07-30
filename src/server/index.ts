@@ -92,7 +92,7 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Bridge API listening on http://localhost:${PORT}`);
+  console.log(`Lintel API listening on http://localhost:${PORT}`);
   console.log(`Network: ${NETWORK_URL}`);
   console.log('');
   for (const route of routes) console.log(`  ${route.method.padEnd(4)} ${route.path.padEnd(28)} ${route.summary}`);
