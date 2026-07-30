@@ -35,14 +35,15 @@ export function App() {
   return (
     <div className="app">
       <header className="masthead">
+        <div className="mark" aria-hidden="true" />
         <h1>Bridge</h1>
         <span className="tagline">Real-estate bridge lending · XLS-65 vault + XLS-66 loans</span>
         <span className="spacer" />
         <span className={`chip ${connected ? 'live' : 'down'}`}>
-          {connected ? '● devnet' : '○ disconnected'}
+          {connected ? 'devnet' : 'disconnected'}
         </span>
         {health.data && (
-          <span className="chip">ledger {health.data.validatedCloseTime.ripple}</span>
+          <span className="chip mono">ledger {health.data.validatedCloseTime.ripple}</span>
         )}
       </header>
 

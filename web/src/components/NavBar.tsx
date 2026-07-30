@@ -16,9 +16,11 @@ import { Sparkline } from './Sparkline';
  * rate is queryable from the ledger. Almost nobody displays both.
  */
 export function NavBar({ fund }: { fund: Fund }) {
-  const history = fund.navHistory.map((p) => p.navPerShare);
-  const series = history.length > 0 ? history : [fund.nav.navPerShare];
-  const first = series[0]!;
+  const series =
+    fund.navHistory.length > 0
+      ? fund.navHistory.map((p) => ({ value: p.navPerShare, note: p.note }))
+      : [{ value: fund.nav.navPerShare, note: 'current' }];
+  const first = series[0]!.value;
   const current = fund.nav.navPerShare;
   const delta = current - first;
 
@@ -37,7 +39,7 @@ export function NavBar({ fund }: { fund: Fund }) {
         </div>
       </div>
 
-      <Sparkline values={series} />
+      <Sparkline points={series} />
 
       <div className="metric">
         <div className="label">Net assets</div>
@@ -61,7 +63,7 @@ export function NavBar({ fund }: { fund: Fund }) {
         <div className="label">Deposit / redeem</div>
         <div className="value">
           {fund.nav.depositRatePerShare.toFixed(4)} / {fund.nav.redemptionRatePerShare.toFixed(4)}
-          {ratesDiverge && <span className="warn"> ⚠</span>}
+          {ratesDiverge && <span className="warn" title="The two rates have diverged — there is an unrealized loss."> ⚠</span>}
         </div>
       </div>
     </div>

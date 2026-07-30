@@ -76,7 +76,7 @@ export function LoanBookScreen({ loans, fund, ledgerTime, onChanged }: Props) {
               <span className={`badge ${gradeClass(loan.grade)}`}>{loan.grade}</span>
               <strong>{loan.dealId}</strong>
               <span className="muted small">{loan.address}</span>
-              <span className={`status ${loan.status}`}>● {loan.status.toUpperCase()}</span>
+              <span className={`status ${loan.status}`}>{loan.status}</span>
               <span style={{ flex: 1 }} />
               <a className="tiny mono" href={loan.explorer} target="_blank" rel="noreferrer">
                 {shortId(loan.originationHash, 10)} ↗
