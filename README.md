@@ -77,6 +77,7 @@ npm test                   # 66 unit tests, no network
 npm run underwrite         # the underwriting engine alone, no ledger
 npm run lifecycle          # the demo plus an empirical probe of ledger conventions
 npm run inspect            # dump current on-ledger state
+npm run verify-links       # re-check the README's explorer links against Devnet
 npm run web:smoke          # render every screen against live API data
 npm run web:build          # production build of the front end
 npm run typecheck          # backend and front end
@@ -144,6 +145,29 @@ Note that absorption is capped at the **required** cover (`CoverRateMinimum` x
 debt), not at cover *available*. The manager held $120,000 and only $50,817 could
 be drawn. A manager who over-posts cover expecting deeper protection does not get
 it.
+
+### See it on the ledger
+
+Every transaction below is from a real run against XRPL Devnet. Click any of them
+— you do not have to run anything to check that this works.
+
+| Step | Transaction |
+| --- | --- |
+| Fund opens | [`VaultCreate`](https://devnet.xrpl.org/transactions/E83B8B66B796BE62AEEA1C31BE43A393752CC4672FD4208DF1F9C1350F67D539) |
+| Manager registers, cover terms fixed | [`LoanBrokerSet`](https://devnet.xrpl.org/transactions/4CB6109AE2E02286C5164D2CDE07589E1AFF811FD68A27AF6A35F4860876EF3D) |
+| Loan originated, **dual-signed** | [`LoanSet`](https://devnet.xrpl.org/transactions/75C13ADB66F961DB1F34527CDC0E4408D84A02C1439A4CEDA8CB0F96DDF6344D) |
+| Borrower pays an installment | [`LoanPay`](https://devnet.xrpl.org/transactions/FC9AFACB81D759310D30627CFB845A8319EC87ACF46E47FC9E6E4408272AE6D0) |
+| Loan moved to the watchlist | [`LoanManage` · impair](https://devnet.xrpl.org/transactions/6278CC65A86A5969AD32799EBB2EBBACF250216841D9788903952494D8B8CA7A) |
+| Loan defaults, cover absorbs | [`LoanManage` · default](https://devnet.xrpl.org/transactions/2A9A0EF10C7C9C686947C9451B3DEAA9688B44ACC42BF2A43B6A4CB1E5A206FE) |
+
+These are **transaction** links rather than object links, deliberately. Teardown
+deletes the `Vault`, `LoanBroker`, and `Loan` entries — as it must, or the next
+run cannot start — but the transactions that created them are on the ledger
+permanently. `npm run verify-links` re-checks all six against Devnet.
+
+Open the `LoanSet` and look at `CounterpartySignature`: that is the borrower and
+the manager having signed the same canonical payload, which is the part of this
+protocol that took longest to get right (see V5 below).
 
 ---
 
