@@ -166,10 +166,29 @@ async function main(): Promise<void> {
 
     const navAfterRepay = await readNav(client, vault.vaultId);
     printNav(navAfterRepay, 'After Cleveland repaid');
+
+    // Attribute the gain per *share*, not per vault.
+    //
+    // Subtracting net assets before from after and calling the difference
+    // "interest" is wrong the moment anything else moves assets — a deposit
+    // arriving mid-run gets reported as earnings, which is precisely the error
+    // you least want on screen in front of a judge. NAV per share is immune to
+    // subscriptions and redemptions, so the honest figure is the per-share gain
+    // applied to the share base that actually earned it.
+    const perShareGain = navAfterRepay.navPerShare - nav.navPerShare;
+    const interestToLps = perShareGain * nav.sharesOutstandingScaled;
     ok(
       `NAV per share rose ${nav.navPerShare.toFixed(6)} → ${navAfterRepay.navPerShare.toFixed(6)} ` +
-        `(+${money(navAfterRepay.netAssets - nav.netAssets)} of interest to the LPs).`,
+        `(+${money(interestToLps)} of interest to the LPs holding at origination).`,
     );
+
+    if (Math.abs(navAfterRepay.sharesOutstandingScaled - nav.sharesOutstandingScaled) > 1e-6) {
+      warn(
+        `Share count changed during the run (${nav.sharesOutstandingScaled.toLocaleString()} → ` +
+          `${navAfterRepay.sharesOutstandingScaled.toLocaleString()}) — someone subscribed or redeemed ` +
+          'while the demo was running, so the totals below will not match a clean run.',
+      );
+    }
     recordNav(navAfterRepay.navPerShare, 'after Cleveland repaid in full');
     nav = navAfterRepay;
     updateState((s) => {

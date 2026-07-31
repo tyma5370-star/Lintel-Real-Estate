@@ -332,16 +332,48 @@ export async function deleteLoan(client: Client, account: Wallet, loanId: string
  * Polls the validated ledger rather than sleeping a wall-clock duration, because
  * Devnet close times are what the protocol checks against and they do not
  * advance at exactly one second per second.
+ *
+ * Transient request failures are tolerated. This loop runs for a minute or more
+ * against a public Devnet node, which is long enough for a single request to time
+ * out or the websocket to drop — and letting that kill the caller means a
+ * teardown dies halfway through, leaving objects stranded on the ledger and the
+ * next run unable to start. A dropped poll is not a reason to give up; it is a
+ * reason to reconnect and poll again.
  */
 export async function waitForLedgerTime(
   client: Client,
   rippleTime: number,
   onTick?: (secondsRemaining: number) => void,
 ): Promise<void> {
+  const deadline = Date.now() + 10 * 60_000;
+  let consecutiveFailures = 0;
+
   for (;;) {
-    const { ripple: now } = await validatedCloseTime(client);
-    if (now >= rippleTime) return;
-    onTick?.(rippleTime - now);
+    try {
+      const { ripple: now } = await validatedCloseTime(client);
+      consecutiveFailures = 0;
+      if (now >= rippleTime) return;
+      onTick?.(rippleTime - now);
+    } catch (error) {
+      if (++consecutiveFailures >= 10) {
+        throw new Error(
+          `waitForLedgerTime: ${consecutiveFailures} consecutive failures polling the validated ledger — ` +
+            `last error: ${error instanceof Error ? error.message : String(error)}`,
+        );
+      }
+      // Most likely a dropped socket. Reconnecting is cheap and idempotent.
+      try {
+        if (!client.isConnected()) await client.connect();
+      } catch {
+        /* next tick will try again */
+      }
+    }
+
+    if (Date.now() > deadline) {
+      throw new Error(
+        `waitForLedgerTime: gave up after 10 minutes waiting for ledger time ${rippleTime}.`,
+      );
+    }
     await new Promise((resolve) => setTimeout(resolve, 4000));
   }
 }
